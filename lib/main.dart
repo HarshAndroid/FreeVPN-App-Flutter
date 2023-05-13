@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
+import 'package:flutter/services.dart';
+import 'screens/splash_screen.dart';
+
+//global object for accessing device screen size
+late Size mq;
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  //enter full-screen
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+
+  //for setting orientation to portrait only
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((v) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -17,7 +30,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'OpenVpn Demo',
-      home: HomeScreen(),
+      home: SplashScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
