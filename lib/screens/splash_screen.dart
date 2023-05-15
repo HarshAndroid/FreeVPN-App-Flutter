@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/route_manager.dart';
 
 import '../main.dart';
 import 'home_screen.dart';
@@ -16,13 +17,13 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(milliseconds: 1500), () {
-
       //exit full-screen
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
       //navigate to home
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => HomeScreen()));
+      Get.off(() => HomeScreen());
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (_) => HomeScreen()));
     });
   }
 

@@ -14,13 +14,16 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Getx for state management
+  get: ^4.6.5
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # Change package name  
-  change_app_package_name: ^1.1.0
+  # change_app_package_name: ^1.1.0
 
 flutter:
   # Enabling material design
