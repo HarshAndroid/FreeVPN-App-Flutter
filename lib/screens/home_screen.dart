@@ -1,15 +1,14 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:get/get.dart';
 
 import '../main.dart';
 import '../models/vpn_config.dart';
-import '../models/vpn_status.dart';
 import '../services/vpn_engine.dart';
+import '../widgets/count_down_timer.dart';
 import '../widgets/home_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,6 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
   String _vpnState = VpnEngine.vpnDisconnected;
   List<VpnConfig> _listVpn = [];
   VpnConfig? _selectedVpn;
+
+  final RxBool _startTimer = false.obs;
 
   @override
   void initState() {
@@ -79,10 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: _changeLocation(),
 
       //body
-      body: Column(mainAxisSize: MainAxisSize.min, children: [
-        //for adding some space
-        SizedBox(height: mq.height * .02, width: double.maxFinite),
-
+      body: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         //vpn button
         _vpnButton(),
 
@@ -110,8 +108,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 )),
           ],
         ),
-
-        SizedBox(height: mq.height * .02),
 
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -163,7 +159,9 @@ class _HomeScreenState extends State<HomeScreen> {
           Semantics(
             button: true,
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                _startTimer.value = !_startTimer.value;
+              },
               borderRadius: BorderRadius.circular(100),
               child: Container(
                 padding: EdgeInsets.all(16),
@@ -210,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //connection status label
           Container(
             margin:
-                EdgeInsets.only(top: mq.height * .015, bottom: mq.height * .05),
+                EdgeInsets.only(top: mq.height * .015, bottom: mq.height * .02),
             padding: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
             decoration: BoxDecoration(
                 color: Colors.blue, borderRadius: BorderRadius.circular(15)),
@@ -218,7 +216,10 @@ class _HomeScreenState extends State<HomeScreen> {
               'Not Connected',
               style: TextStyle(fontSize: 12.5, color: Colors.white),
             ),
-          )
+          ),
+
+          //count down timer
+          Obx(() => CountDownTimer(startTimer: _startTimer.value)),
         ],
       );
 
