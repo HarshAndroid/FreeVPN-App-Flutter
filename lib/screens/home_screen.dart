@@ -10,6 +10,7 @@ import '../models/vpn_config.dart';
 import '../services/vpn_engine.dart';
 import '../widgets/count_down_timer.dart';
 import '../widgets/home_card.dart';
+import 'location_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -225,38 +226,44 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //bottom nav to change location
   Widget _changeLocation() => SafeArea(
-      child: Container(
-          color: Colors.blue,
-          padding: EdgeInsets.symmetric(horizontal: mq.width * .04),
-          height: 60,
-          child: Row(
-            children: [
-              //icon
-              Icon(CupertinoIcons.globe, color: Colors.white, size: 28),
+          child: Semantics(
+        button: true,
+        child: InkWell(
+          onTap: () => Get.to(() => LocationScreen()),
+          child: Container(
+              color: Colors.blue,
+              padding: EdgeInsets.symmetric(horizontal: mq.width * .04),
+              height: 60,
+              child: Row(
+                children: [
+                  //icon
+                  Icon(CupertinoIcons.globe, color: Colors.white, size: 28),
 
-              //for adding some space
-              SizedBox(width: 10),
+                  //for adding some space
+                  SizedBox(width: 10),
 
-              //text
-              Text(
-                'Change Location',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500),
-              ),
+                  //text
+                  Text(
+                    'Change Location',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
+                  ),
 
-              //for covering available spacing
-              Spacer(),
+                  //for covering available spacing
+                  Spacer(),
 
-              //icon
-              CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Icon(Icons.keyboard_arrow_right_rounded,
-                    color: Colors.blue, size: 26),
-              )
-            ],
-          )));
+                  //icon
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.keyboard_arrow_right_rounded,
+                        color: Colors.blue, size: 26),
+                  )
+                ],
+              )),
+        ),
+      ));
 }
 
 //  Center(
