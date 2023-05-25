@@ -23,6 +23,9 @@ dependencies:
   # For API Call
   http: ^1.0.0
 
+  # Converting CSV data to List
+  csv: ^5.0.2
+
 
 dev_dependencies:
   flutter_test:
