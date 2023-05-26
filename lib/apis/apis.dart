@@ -9,22 +9,26 @@ class APIs {
   static Future<void> getVPNServers() async {
     final List<Vpn> vpnList = [];
 
-    final res = await get(Uri.parse('http://www.vpngate.net/api/iphone/'));
-    final csvString = res.body.split("#")[1].replaceAll('*', '');
+    try {
+      final res = await get(Uri.parse('http://www.vpngate.net/api/iphone/'));
+      final csvString = res.body.split("#")[1].replaceAll('*', '');
 
-    List<List<dynamic>> list = const CsvToListConverter().convert(csvString);
+      List<List<dynamic>> list = const CsvToListConverter().convert(csvString);
 
-    final header = list[0];
+      final header = list[0];
 
-    for (int i = 1; i < header.length; ++i) {
-      Map<String, dynamic> tempJson = {};
-      for (int j = 0; j < header.length; ++j) {
-        tempJson.addAll({header[j].toString(): list[i][j]});
+      for (int i = 1; i < header.length; ++i) {
+        Map<String, dynamic> tempJson = {};
+        for (int j = 0; j < header.length; ++j) {
+          tempJson.addAll({header[j].toString(): list[i][j]});
+        }
+        vpnList.add(Vpn.fromJson(tempJson));
       }
-      vpnList.add(Vpn.fromJson(tempJson));
-    }
 
-    log(vpnList.first.hostname);
+      log(vpnList.first.hostname);
+    } catch (e) {
+      log('\ngetVPNServersE: $e');
+    }
 
     //  log(res.body);
   }

@@ -26,6 +26,9 @@ dependencies:
   # Converting CSV data to List
   csv: ^5.0.2
 
+  # For Lottie Animation
+  lottie: ^2.3.2
+
 
 dev_dependencies:
   flutter_test:
@@ -43,3 +46,4 @@ flutter:
     - assets/
     - assets/vpn/
     - assets/images/
+    - assets/lottie/
