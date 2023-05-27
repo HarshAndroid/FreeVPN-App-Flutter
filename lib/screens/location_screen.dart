@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:lottie/lottie.dart';
 
-import '../apis/apis.dart';
+import '../controllers/location_controller.dart';
 import '../main.dart';
 
 class LocationScreen extends StatefulWidget {
@@ -12,23 +13,41 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  final _controller = LocationController();
+
   @override
   void initState() {
     super.initState();
-    APIs.getVPNServers();
+    _controller.getVpnData();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      //app bar
-      appBar: AppBar(
-        title: Text('VPN Locations'),
-      ),
+    return Obx(
+      () => Scaffold(
+        //app bar
+        appBar: AppBar(
+          title: Text('VPN Locations (${_controller.vpnList.length})'),
+        ),
 
-      body: _loadingWidget(),
+        body: _controller.isLoading.value
+            ? _loadingWidget()
+            : _controller.vpnList.isEmpty
+                ? _noVPNFound()
+                : _vpnData(),
+      ),
     );
   }
+
+  _vpnData() => ListView.builder(
+      itemCount: _controller.vpnList.length,
+      itemBuilder: (ctx, i) => Text(_controller.vpnList[i].hostname));
 
   _loadingWidget() => SizedBox(
         width: double.infinity,

@@ -6,7 +6,7 @@ import 'package:http/http.dart';
 import '../models/vpn.dart';
 
 class APIs {
-  static Future<void> getVPNServers() async {
+  static Future<List<Vpn>> getVPNServers() async {
     final List<Vpn> vpnList = [];
 
     try {
@@ -17,20 +17,19 @@ class APIs {
 
       final header = list[0];
 
-      for (int i = 1; i < header.length; ++i) {
+      for (int i = 1; i < list.length - 1; ++i) {
         Map<String, dynamic> tempJson = {};
+
         for (int j = 0; j < header.length; ++j) {
           tempJson.addAll({header[j].toString(): list[i][j]});
         }
         vpnList.add(Vpn.fromJson(tempJson));
       }
-
-      log(vpnList.first.hostname);
     } catch (e) {
       log('\ngetVPNServersE: $e');
     }
 
-    //  log(res.body);
+    return vpnList;
   }
 }
 
