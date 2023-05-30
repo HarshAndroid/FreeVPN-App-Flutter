@@ -5,8 +5,10 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
 
+import '../controllers/home_controller.dart';
 import '../main.dart';
 import '../models/vpn_config.dart';
+import '../models/vpn_status.dart';
 import '../services/vpn_engine.dart';
 import '../widgets/count_down_timer.dart';
 import '../widgets/home_card.dart';
@@ -18,11 +20,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String _vpnState = VpnEngine.vpnDisconnected;
+  final _controller = HomeController();
   List<VpnConfig> _listVpn = [];
   VpnConfig? _selectedVpn;
-
-  final RxBool _startTimer = false.obs;
 
   @override
   void initState() {
@@ -30,10 +30,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
     ///Add listener to update vpn state
     VpnEngine.vpnStageSnapshot().listen((event) {
-      setState(() => _vpnState = event);
+      _controller.vpnState.value = event;
     });
 
     initVpn();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   void initVpn() async {
@@ -83,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
       //body
       body: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         //vpn button
-        _vpnButton(),
+        Obx(() => _vpnButton()),
 
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -110,32 +116,35 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
 
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            //download
-            HomeCard(
-                title: '0 kbps',
-                subtitle: 'DOWNLOAD',
-                icon: CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.lightGreen,
-                  child: Icon(Icons.arrow_downward_rounded,
-                      size: 30, color: Colors.white),
-                )),
+        StreamBuilder<VpnStatus?>(
+            initialData: VpnStatus(),
+            stream: VpnEngine.vpnStatusSnapshot(),
+            builder: (context, snapshot) => Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //download
+                    HomeCard(
+                        title: '${snapshot.data?.byteIn ?? '0 kbps'}',
+                        subtitle: 'DOWNLOAD',
+                        icon: CircleAvatar(
+                          radius: 30,
+                          backgroundColor: Colors.lightGreen,
+                          child: Icon(Icons.arrow_downward_rounded,
+                              size: 30, color: Colors.white),
+                        )),
 
-            //upload
-            HomeCard(
-                title: '0 kbps',
-                subtitle: 'UPLOAD',
-                icon: CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.blue,
-                  child: Icon(Icons.arrow_upward_rounded,
-                      size: 30, color: Colors.white),
-                )),
-          ],
-        )
+                    //upload
+                    HomeCard(
+                        title: '${snapshot.data?.byteOut ?? '0 kbps'}',
+                        subtitle: 'UPLOAD',
+                        icon: CircleAvatar(
+                          radius: 30,
+                          backgroundColor: Colors.blue,
+                          child: Icon(Icons.arrow_upward_rounded,
+                              size: 30, color: Colors.white),
+                        )),
+                  ],
+                ))
       ]),
     );
   }
@@ -144,11 +153,13 @@ class _HomeScreenState extends State<HomeScreen> {
     ///Stop right here if user not select a vpn
     if (_selectedVpn == null) return;
 
-    if (_vpnState == VpnEngine.vpnDisconnected) {
+    if (_controller.vpnState.value == VpnEngine.vpnDisconnected) {
       ///Start if stage is disconnected
       VpnEngine.startVpn(_selectedVpn!);
+      _controller.startTimer.value = true;
     } else {
       ///Stop if stage is "not" disconnected
+      _controller.startTimer.value = false;
       VpnEngine.stopVpn();
     }
   }
@@ -161,23 +172,25 @@ class _HomeScreenState extends State<HomeScreen> {
             button: true,
             child: InkWell(
               onTap: () {
-                _startTimer.value = !_startTimer.value;
+                _connectClick();
               },
               borderRadius: BorderRadius.circular(100),
               child: Container(
                 padding: EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: Colors.blue.withOpacity(.1)),
+                    shape: BoxShape.circle,
+                    color: _controller.getButtonColor.withOpacity(.1)),
                 child: Container(
                   padding: EdgeInsets.all(16),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.blue.withOpacity(.3)),
+                      color: _controller.getButtonColor.withOpacity(.3)),
                   child: Container(
                     width: mq.height * .14,
                     height: mq.height * .14,
                     decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.blue),
+                        shape: BoxShape.circle,
+                        color: _controller.getButtonColor),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -192,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         //text
                         Text(
-                          'Tap to Connect',
+                          _controller.getButtonText,
                           style: TextStyle(
                               fontSize: 12.5,
                               color: Colors.white,
@@ -214,13 +227,15 @@ class _HomeScreenState extends State<HomeScreen> {
             decoration: BoxDecoration(
                 color: Colors.blue, borderRadius: BorderRadius.circular(15)),
             child: Text(
-              'Not Connected',
+              _controller.vpnState.value == VpnEngine.vpnDisconnected
+                  ? 'Not Connected'
+                  : _controller.vpnState.replaceAll('_', ' ').toUpperCase(),
               style: TextStyle(fontSize: 12.5, color: Colors.white),
             ),
           ),
 
           //count down timer
-          Obx(() => CountDownTimer(startTimer: _startTimer.value)),
+          Obx(() => CountDownTimer(startTimer: _controller.startTimer.value)),
         ],
       );
 
@@ -266,6 +281,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ));
 }
 
+
+
 //  Center(
 //           child: TextButton(
 //             style: TextButton.styleFrom(
@@ -273,9 +290,9 @@ class _HomeScreenState extends State<HomeScreen> {
 //               backgroundColor: Theme.of(context).primaryColor,
 //             ),
 //             child: Text(
-//               _vpnState == VpnEngine.vpnDisconnected
+//               _controller.vpnState.value == VpnEngine.vpnDisconnected
 //                   ? 'Connect VPN'
-//                   : _vpnState.replaceAll("_", " ").toUpperCase(),
+//                   : _controller.vpnState.value.replaceAll("_", " ").toUpperCase(),
 //               style: TextStyle(color: Colors.white),
 //             ),
 //             onPressed: _connectClick,
