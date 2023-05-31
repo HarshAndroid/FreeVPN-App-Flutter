@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 import '../main.dart';
 import '../models/vpn.dart';
+import '../services/vpn_engine.dart';
 
 class VpnCard extends StatelessWidget {
   final Vpn vpn;
@@ -25,6 +26,13 @@ class VpnCard extends StatelessWidget {
           onTap: () {
             controller.vpn.value = vpn;
             Get.back();
+
+            if (controller.vpnState.value == VpnEngine.vpnDisconnected) {
+              VpnEngine.stopVpn();
+              controller.connectToVpn();
+            } else {
+              controller.connectToVpn();
+            }
           },
           borderRadius: BorderRadius.circular(15),
           child: ListTile(

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/services.dart';
 import '../models/vpn_status.dart';
 import '../models/vpn_config.dart';
@@ -23,7 +22,7 @@ class VpnEngine {
 
   ///Start VPN easily
   static Future<void> startVpn(VpnConfig vpnConfig) async {
-    log(vpnConfig.config);
+    // log(vpnConfig.config);
     return MethodChannel(_methodChannelVpnControl).invokeMethod(
       "start",
       {
