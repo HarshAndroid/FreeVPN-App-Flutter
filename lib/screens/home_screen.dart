@@ -20,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _controller = HomeController();
+  final _controller = Get.put(HomeController());
   List<VpnConfig> _listVpn = [];
   VpnConfig? _selectedVpn;
 
@@ -91,29 +91,41 @@ class _HomeScreenState extends State<HomeScreen> {
         //vpn button
         Obx(() => _vpnButton()),
 
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            //country flag
-            HomeCard(
-                title: 'Country',
-                subtitle: 'FREE',
-                icon: CircleAvatar(
-                  radius: 30,
-                  child: Icon(Icons.vpn_lock_rounded, size: 30),
-                )),
+        Obx(
+          () => Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              //country flag
+              HomeCard(
+                  title: _controller.vpn.value.countryLong.isEmpty
+                      ? 'Country'
+                      : _controller.vpn.value.countryLong,
+                  subtitle: 'FREE',
+                  icon: CircleAvatar(
+                    radius: 30,
+                    child: _controller.vpn.value.countryLong.isEmpty
+                        ? Icon(Icons.vpn_lock_rounded, size: 30)
+                        : null,
+                    backgroundImage: _controller.vpn.value.countryLong.isEmpty
+                        ? null
+                        : AssetImage(
+                            'assets/flags/${_controller.vpn.value.countryShort.toLowerCase()}.png'),
+                  )),
 
-            //ping time
-            HomeCard(
-                title: '100 ms',
-                subtitle: 'PING',
-                icon: CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.orange,
-                  child: Icon(Icons.equalizer_rounded,
-                      size: 30, color: Colors.white),
-                )),
-          ],
+              //ping time
+              HomeCard(
+                  title: _controller.vpn.value.countryLong.isEmpty
+                      ? '100 ms'
+                      : '${_controller.vpn.value.ping} ms',
+                  subtitle: 'PING',
+                  icon: CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.orange,
+                    child: Icon(Icons.equalizer_rounded,
+                        size: 30, color: Colors.white),
+                  )),
+            ],
+          ),
         ),
 
         StreamBuilder<VpnStatus?>(
