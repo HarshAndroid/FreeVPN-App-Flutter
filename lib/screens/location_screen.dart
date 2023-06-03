@@ -14,7 +14,7 @@ class LocationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _controller.getVpnData();
+    if (_controller.vpnList.isEmpty) _controller.getVpnData();
 
     return Obx(
       () => Scaffold(
@@ -27,9 +27,7 @@ class LocationScreen extends StatelessWidget {
         floatingActionButton: Padding(
           padding: const EdgeInsets.only(bottom: 10, right: 10),
           child: FloatingActionButton(
-              onPressed: () =>
-                _controller.getVpnData()
-              ,
+              onPressed: () => _controller.getVpnData(),
               child: Icon(CupertinoIcons.refresh)),
         ),
 

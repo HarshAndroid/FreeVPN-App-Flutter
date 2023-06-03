@@ -29,6 +29,10 @@ dependencies:
   # For Lottie Animation
   lottie: ^2.3.2
 
+  # For storing data (in local storage) 
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
 
 dev_dependencies:
   flutter_test:

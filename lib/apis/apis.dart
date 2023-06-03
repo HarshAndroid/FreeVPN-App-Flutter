@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:csv/csv.dart';
 import 'package:http/http.dart';
 
+import '../helpers/pref.dart';
 import '../models/vpn.dart';
 
 class APIs {
@@ -29,6 +30,9 @@ class APIs {
       log('\ngetVPNServersE: $e');
     }
     vpnList.shuffle();
+    
+    if (vpnList.isNotEmpty) Pref.vpnList = vpnList;
+
     return vpnList;
   }
 }

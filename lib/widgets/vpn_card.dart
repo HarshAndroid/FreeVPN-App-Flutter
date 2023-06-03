@@ -1,11 +1,11 @@
 import 'dart:math';
-import 'dart:developer' as dev;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
+import '../helpers/pref.dart';
 import '../main.dart';
 import '../models/vpn.dart';
 import '../services/vpn_engine.dart';
@@ -26,6 +26,7 @@ class VpnCard extends StatelessWidget {
         child: InkWell(
           onTap: () {
             controller.vpn.value = vpn;
+            Pref.vpn = vpn;
             Get.back();
 
             if (controller.vpnState.value == VpnEngine.vpnConnected) {

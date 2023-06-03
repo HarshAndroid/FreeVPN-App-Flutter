@@ -3,12 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../helpers/pref.dart';
 import '../models/vpn.dart';
 import '../models/vpn_config.dart';
 import '../services/vpn_engine.dart';
 
 class HomeController extends GetxController {
-  final Rx<Vpn> vpn = Vpn.fromJson({}).obs;
+  final Rx<Vpn> vpn = Pref.vpn.obs;
 
   final vpnState = VpnEngine.vpnDisconnected.obs;
 
