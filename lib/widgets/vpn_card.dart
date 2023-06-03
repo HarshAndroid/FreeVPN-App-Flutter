@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:developer' as dev;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +28,10 @@ class VpnCard extends StatelessWidget {
             controller.vpn.value = vpn;
             Get.back();
 
-            if (controller.vpnState.value == VpnEngine.vpnDisconnected) {
+            if (controller.vpnState.value == VpnEngine.vpnConnected) {
               VpnEngine.stopVpn();
-              controller.connectToVpn();
+              Future.delayed(
+                  Duration(seconds: 2), () => controller.connectToVpn());
             } else {
               controller.connectToVpn();
             }
@@ -50,6 +52,7 @@ class VpnCard extends StatelessWidget {
                 child: Image.asset(
                     'assets/flags/${vpn.countryShort.toLowerCase()}.png',
                     height: 40,
+                    width: mq.width * .15,
                     fit: BoxFit.cover),
               ),
             ),

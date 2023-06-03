@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -195,7 +194,9 @@ class HomeScreen extends StatelessWidget {
           ),
 
           //count down timer
-          Obx(() => CountDownTimer(startTimer: _controller.startTimer.value)),
+          Obx(() => CountDownTimer(
+              startTimer:
+                  _controller.vpnState.value == VpnEngine.vpnConnected)),
         ],
       );
 

@@ -12,15 +12,12 @@ class HomeController extends GetxController {
 
   final vpnState = VpnEngine.vpnDisconnected.obs;
 
-  final RxBool startTimer = false.obs;
-
   void connectToVpn() async {
     if (vpn.value.openVPNConfigDataBase64.isEmpty) return;
 
     if (vpnState.value == VpnEngine.vpnDisconnected) {
       // log('\nBefore: ${vpn.value.openVPNConfigDataBase64}');
 
-      startTimer.value = true;
       final data = Base64Decoder().convert(vpn.value.openVPNConfigDataBase64);
       final config = Utf8Decoder().convert(data);
       final vpnConfig = VpnConfig(
@@ -33,7 +30,6 @@ class HomeController extends GetxController {
 
       await VpnEngine.startVpn(vpnConfig);
     } else {
-      startTimer.value = false;
       await VpnEngine.stopVpn();
     }
   }

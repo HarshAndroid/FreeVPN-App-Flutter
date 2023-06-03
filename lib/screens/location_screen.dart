@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:lottie/lottie.dart';
@@ -20,6 +21,16 @@ class LocationScreen extends StatelessWidget {
         //app bar
         appBar: AppBar(
           title: Text('VPN Locations (${_controller.vpnList.length})'),
+        ),
+
+        //refresh button
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 10, right: 10),
+          child: FloatingActionButton(
+              onPressed: () =>
+                _controller.getVpnData()
+              ,
+              child: Icon(CupertinoIcons.refresh)),
         ),
 
         body: _controller.isLoading.value
