@@ -12,6 +12,10 @@ class Pref {
     _box = await Hive.openBox('data');
   }
 
+  //for storing theme data
+  static bool get isDarkMode => _box.get('isDarkMode') ?? false;
+  static set isDarkMode(bool v) => _box.put('isDarkMode', v);
+
   //for storing single selected vpn details
   static Vpn get vpn => Vpn.fromJson(jsonDecode(_box.get('vpn') ?? '{}'));
   static set vpn(Vpn v) => _box.put('vpn', jsonEncode(v));

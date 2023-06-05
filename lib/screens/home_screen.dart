@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
+import '../helpers/pref.dart';
 import '../main.dart';
 
 import '../models/vpn_status.dart';
@@ -31,7 +32,11 @@ class HomeScreen extends StatelessWidget {
         title: Text('Free OpenVPN'),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.changeThemeMode(
+                    Pref.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+                Pref.isDarkMode = !Pref.isDarkMode;
+              },
               icon: Icon(
                 Icons.brightness_medium,
                 size: 26,
@@ -46,7 +51,7 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
 
-      bottomNavigationBar: _changeLocation(),
+      bottomNavigationBar: _changeLocation(context),
 
       //body
       body: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
@@ -65,8 +70,10 @@ class HomeScreen extends StatelessWidget {
                   subtitle: 'FREE',
                   icon: CircleAvatar(
                     radius: 30,
+                    backgroundColor: Colors.blue,
                     child: _controller.vpn.value.countryLong.isEmpty
-                        ? Icon(Icons.vpn_lock_rounded, size: 30)
+                        ? Icon(Icons.vpn_lock_rounded,
+                            size: 30, color: Colors.white)
                         : null,
                     backgroundImage: _controller.vpn.value.countryLong.isEmpty
                         ? null
@@ -201,13 +208,13 @@ class HomeScreen extends StatelessWidget {
       );
 
   //bottom nav to change location
-  Widget _changeLocation() => SafeArea(
+  Widget _changeLocation(BuildContext context) => SafeArea(
           child: Semantics(
         button: true,
         child: InkWell(
           onTap: () => Get.to(() => LocationScreen()),
           child: Container(
-              color: Colors.blue,
+              color: Theme.of(context).bottomNav,
               padding: EdgeInsets.symmetric(horizontal: mq.width * .04),
               height: 60,
               child: Row(

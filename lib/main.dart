@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
+
 import 'helpers/pref.dart';
 import 'screens/splash_screen.dart';
 
@@ -35,7 +36,19 @@ class MyApp extends StatelessWidget {
       theme:
           ThemeData(appBarTheme: AppBarTheme(centerTitle: true, elevation: 3)),
 
+      themeMode: Pref.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+
+      //dark theme
+      darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          appBarTheme: AppBarTheme(centerTitle: true, elevation: 3)),
+
       debugShowCheckedModeBanner: false,
     );
   }
+}
+
+extension AppTheme on ThemeData {
+  Color get lightText => Pref.isDarkMode ? Colors.white70 : Colors.black54;
+  Color get bottomNav => Pref.isDarkMode ? Colors.white12 : Colors.blue;
 }

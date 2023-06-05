@@ -49,7 +49,8 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Text(
                 'MADE IN INDIA WITH ❤️',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black87, letterSpacing: 1),
+                style: TextStyle(
+                    color: Theme.of(context).lightText, letterSpacing: 1),
               ))
         ],
       ),

@@ -78,7 +78,7 @@ class VpnCard extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black54)),
+                        color: Theme.of(context).lightText)),
                 SizedBox(width: 4),
                 Icon(CupertinoIcons.person_3, color: Colors.blue),
               ],
