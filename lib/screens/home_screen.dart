@@ -12,6 +12,7 @@ import '../services/vpn_engine.dart';
 import '../widgets/count_down_timer.dart';
 import '../widgets/home_card.dart';
 import 'location_screen.dart';
+import 'network_test_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -43,7 +44,7 @@ class HomeScreen extends StatelessWidget {
               )),
           IconButton(
               padding: EdgeInsets.only(right: 8),
-              onPressed: () {},
+              onPressed: () => Get.to(() => NetworkTestScreen()),
               icon: Icon(
                 CupertinoIcons.info,
                 size: 27,
