@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:csv/csv.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart';
 
 import '../helpers/pref.dart';
+import '../models/ip_details.dart';
 import '../models/vpn.dart';
 
 class APIs {
@@ -30,10 +33,21 @@ class APIs {
       log('\ngetVPNServersE: $e');
     }
     vpnList.shuffle();
-    
+
     if (vpnList.isNotEmpty) Pref.vpnList = vpnList;
 
     return vpnList;
+  }
+
+  static Future<void> getIPDetails({required Rx<IPDetails> ipData}) async {
+    try {
+      final res = await get(Uri.parse('http://ip-api.com/json/'));
+      final data = jsonDecode(res.body);
+      log(data.toString());
+      ipData.value = IPDetails.fromJson(data);
+    } catch (e) {
+      log('\ngetIPDetailsE: $e');
+    }
   }
 }
 
