@@ -5,6 +5,7 @@ import 'package:csv/csv.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 
+import '../helpers/my_dialogs.dart';
 import '../helpers/pref.dart';
 import '../models/ip_details.dart';
 import '../models/vpn.dart';
@@ -30,6 +31,7 @@ class APIs {
         vpnList.add(Vpn.fromJson(tempJson));
       }
     } catch (e) {
+      MyDialogs.error(msg: e.toString());
       log('\ngetVPNServersE: $e');
     }
     vpnList.shuffle();
@@ -46,6 +48,7 @@ class APIs {
       log(data.toString());
       ipData.value = IPDetails.fromJson(data);
     } catch (e) {
+      MyDialogs.error(msg: e.toString());
       log('\ngetIPDetailsE: $e');
     }
   }
