@@ -33,6 +33,9 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
 
+  # For integrating ads
+  google_mobile_ads: ^3.0.0
+
 
 dev_dependencies:
   flutter_test:

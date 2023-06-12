@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Ads Permission for Android 12 or higher -->
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
     
     
     <application
@@ -13,6 +16,11 @@
         android:label="Free VPN"
         android:icon="@mipmap/ic_launcher"
         tools:ignore="AllowBackup">
+        
+        <!-- For Ads -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
         
         <activity
             android:name=".MainActivity"
