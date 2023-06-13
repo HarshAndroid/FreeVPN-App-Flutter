@@ -16,4 +16,8 @@ class MyDialogs {
   static info({required String msg}) {
     Get.snackbar('Info', msg, colorText: Colors.white);
   }
+
+  static showProgress() {
+    Get.dialog(Center(child: CircularProgressIndicator(strokeWidth: 2)));
+  }
 }

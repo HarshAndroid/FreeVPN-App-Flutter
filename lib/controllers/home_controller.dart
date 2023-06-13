@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../helpers/ad_helper.dart';
 import '../helpers/my_dialogs.dart';
 import '../helpers/pref.dart';
 import '../models/vpn.dart';
@@ -33,7 +34,10 @@ class HomeController extends GetxController {
 
       // log('\nAfter: $config');
 
-      await VpnEngine.startVpn(vpnConfig);
+      //code to show interstitial ad and then connect to vpn
+      AdHelper.showInterstitialAd(onComplete: () async {
+        await VpnEngine.startVpn(vpnConfig);
+      });
     } else {
       await VpnEngine.stopVpn();
     }
