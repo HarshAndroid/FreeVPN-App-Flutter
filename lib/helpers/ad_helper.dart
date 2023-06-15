@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../controllers/native_ad_controller.dart';
 import 'my_dialogs.dart';
 
 class AdHelper {
@@ -35,5 +36,25 @@ class AdHelper {
         },
       ),
     );
+  }
+
+  static NativeAd loadNativeAd({required NativeAdController adController}) {
+    return NativeAd(
+        adUnitId: 'ca-app-pub-3940256099942544/2247696110',
+        listener: NativeAdListener(
+          onAdLoaded: (ad) {
+            log('$NativeAd loaded.');
+            adController.adLoaded.value = true;
+          },
+          onAdFailedToLoad: (ad, error) {
+            log('$NativeAd failed to load: $error');
+            ad.dispose();
+          },
+        ),
+        request: const AdRequest(),
+        // Styling
+        nativeTemplateStyle:
+            NativeTemplateStyle(templateType: TemplateType.small))
+      ..load();
   }
 }
