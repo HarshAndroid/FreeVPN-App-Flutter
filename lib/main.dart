@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'helpers/ad_helper.dart';
 import 'helpers/pref.dart';
@@ -14,6 +15,9 @@ Future<void> main() async {
 
   //enter full-screen
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+
+  //firebase initialization
+  await Firebase.initializeApp();
 
   await Pref.initializeHive();
 

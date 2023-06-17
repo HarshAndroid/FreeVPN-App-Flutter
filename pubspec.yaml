@@ -36,6 +36,9 @@ dependencies:
   # For integrating ads
   google_mobile_ads: ^3.0.0
 
+  # For firebase
+  firebase_core: ^2.14.0
+
 
 dev_dependencies:
   flutter_test:

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "480415667223",
+    "project_id": "freevpn-flutter",
+    "storage_bucket": "freevpn-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480415667223:android:6a5177701d3e4bb2e63852",
+        "android_client_info": {
+          "package_name": "com.harshRajpurohit.freeVpn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480415667223-cp82h16vl2ms0u4bcs40qq273ibfhp79.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB278a0ik31BTSL3w2tgMgSgQQJj7avakM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480415667223-cp82h16vl2ms0u4bcs40qq273ibfhp79.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
