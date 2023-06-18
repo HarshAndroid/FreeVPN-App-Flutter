@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../controllers/native_ad_controller.dart';
+import 'config.dart';
 import 'my_dialogs.dart';
 
 class AdHelper {
@@ -16,8 +17,10 @@ class AdHelper {
   static void showInterstitialAd({required VoidCallback onComplete}) {
     MyDialogs.showProgress();
 
+    log('Interstitial Ad Id: ${Config.interstitialAd}');
+
     InterstitialAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/1033173712',
+      adUnitId: Config.interstitialAd,
       request: AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
@@ -39,8 +42,10 @@ class AdHelper {
   }
 
   static NativeAd loadNativeAd({required NativeAdController adController}) {
+    log('Native Ad Id: ${Config.nativeAd}');
+
     return NativeAd(
-        adUnitId: 'ca-app-pub-3940256099942544/2247696110',
+        adUnitId: Config.nativeAd,
         listener: NativeAdListener(
           onAdLoaded: (ad) {
             log('$NativeAd loaded.');
@@ -59,10 +64,12 @@ class AdHelper {
   }
 
   static void showRewardedAd({required VoidCallback onComplete}) {
+    log('Rewarded Ad Id: ${Config.rewardedAd}');
+
     MyDialogs.showProgress();
 
     RewardedAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/5224354917',
+      adUnitId: Config.rewardedAd,
       request: AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {
