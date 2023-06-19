@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:lottie/lottie.dart';
 
@@ -31,6 +30,7 @@ class LocationScreen extends StatelessWidget {
         ),
 
         bottomNavigationBar:
+            // Config.hideAds ? null:
             _adController.ad != null && _adController.adLoaded.isTrue
                 ? SafeArea(
                     child: SizedBox(

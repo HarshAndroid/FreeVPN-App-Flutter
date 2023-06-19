@@ -15,9 +15,14 @@ class AdHelper {
   }
 
   static void showInterstitialAd({required VoidCallback onComplete}) {
-    MyDialogs.showProgress();
-
     log('Interstitial Ad Id: ${Config.interstitialAd}');
+
+    if (Config.hideAds) {
+      onComplete();
+      return;
+    }
+
+    MyDialogs.showProgress();
 
     InterstitialAd.load(
       adUnitId: Config.interstitialAd,
@@ -41,8 +46,10 @@ class AdHelper {
     );
   }
 
-  static NativeAd loadNativeAd({required NativeAdController adController}) {
+  static NativeAd? loadNativeAd({required NativeAdController adController}) {
     log('Native Ad Id: ${Config.nativeAd}');
+
+    if (Config.hideAds) return null;
 
     return NativeAd(
         adUnitId: Config.nativeAd,
@@ -65,6 +72,11 @@ class AdHelper {
 
   static void showRewardedAd({required VoidCallback onComplete}) {
     log('Rewarded Ad Id: ${Config.rewardedAd}');
+
+    if (Config.hideAds) {
+      onComplete();
+      return;
+    }
 
     MyDialogs.showProgress();
 

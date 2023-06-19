@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
 import '../helpers/ad_helper.dart';
+import '../helpers/config.dart';
 import '../helpers/pref.dart';
 import '../main.dart';
 
@@ -37,6 +38,14 @@ class HomeScreen extends StatelessWidget {
           IconButton(
               onPressed: () {
                 //ad dialog
+
+                if (Config.hideAds) {
+                  Get.changeThemeMode(
+                      Pref.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+                  Pref.isDarkMode = !Pref.isDarkMode;
+                  return;
+                }
+
                 Get.dialog(WatchAdDialog(onComplete: () {
                   //watch ad to gain reward
                   AdHelper.showRewardedAd(onComplete: () {
