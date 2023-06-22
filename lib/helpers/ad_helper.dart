@@ -14,10 +14,57 @@ class AdHelper {
     await MobileAds.instance.initialize();
   }
 
+  static InterstitialAd? _interstitialAd;
+  static bool _interstitialAdLoaded = false;
+
+  static NativeAd? _nativeAd;
+  static bool _nativeAdLoaded = false;
+
+  //*****************Interstitial Ad******************
+
+  static void precacheInterstitialAd() {
+    log('Precache Interstitial Ad - Id: ${Config.interstitialAd}');
+
+    if (Config.hideAds) return;
+
+    InterstitialAd.load(
+      adUnitId: Config.interstitialAd,
+      request: AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          //ad listener
+          ad.fullScreenContentCallback =
+              FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {
+            _resetInterstitialAd();
+            precacheInterstitialAd();
+          });
+          _interstitialAd = ad;
+          _interstitialAdLoaded = true;
+        },
+        onAdFailedToLoad: (err) {
+          _resetInterstitialAd();
+          log('Failed to load an interstitial ad: ${err.message}');
+        },
+      ),
+    );
+  }
+
+  static void _resetInterstitialAd() {
+    _interstitialAd?.dispose();
+    _interstitialAd = null;
+    _interstitialAdLoaded = false;
+  }
+
   static void showInterstitialAd({required VoidCallback onComplete}) {
     log('Interstitial Ad Id: ${Config.interstitialAd}');
 
     if (Config.hideAds) {
+      onComplete();
+      return;
+    }
+
+    if (_interstitialAdLoaded && _interstitialAd != null) {
+      _interstitialAd?.show();
       onComplete();
       return;
     }
@@ -33,6 +80,8 @@ class AdHelper {
           ad.fullScreenContentCallback =
               FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {
             onComplete();
+            _resetInterstitialAd();
+            precacheInterstitialAd();
           });
           Get.back();
           ad.show();
@@ -46,21 +95,23 @@ class AdHelper {
     );
   }
 
-  static NativeAd? loadNativeAd({required NativeAdController adController}) {
-    log('Native Ad Id: ${Config.nativeAd}');
+  //*****************Native Ad******************
 
-    if (Config.hideAds) return null;
+  static void precacheNativeAd() {
+    log('Precache Native Ad - Id: ${Config.nativeAd}');
 
-    return NativeAd(
+    if (Config.hideAds) return;
+
+    _nativeAd = NativeAd(
         adUnitId: Config.nativeAd,
         listener: NativeAdListener(
           onAdLoaded: (ad) {
             log('$NativeAd loaded.');
-            adController.adLoaded.value = true;
+            _nativeAdLoaded = true;
           },
           onAdFailedToLoad: (ad, error) {
+            _resetNativeAd();
             log('$NativeAd failed to load: $error');
-            ad.dispose();
           },
         ),
         request: const AdRequest(),
@@ -69,6 +120,45 @@ class AdHelper {
             NativeTemplateStyle(templateType: TemplateType.small))
       ..load();
   }
+
+  static void _resetNativeAd() {
+    _nativeAd?.dispose();
+    _nativeAd = null;
+    _nativeAdLoaded = false;
+  }
+
+  static NativeAd? loadNativeAd({required NativeAdController adController}) {
+    log('Native Ad Id: ${Config.nativeAd}');
+
+    if (Config.hideAds) return null;
+
+    if (_nativeAdLoaded && _nativeAd != null) {
+      adController.adLoaded.value = true;
+      return _nativeAd;
+    }
+
+    return NativeAd(
+        adUnitId: Config.nativeAd,
+        listener: NativeAdListener(
+          onAdLoaded: (ad) {
+            log('$NativeAd loaded.');
+            adController.adLoaded.value = true;
+            _resetNativeAd();
+            precacheNativeAd();
+          },
+          onAdFailedToLoad: (ad, error) {
+            _resetNativeAd();
+            log('$NativeAd failed to load: $error');
+          },
+        ),
+        request: const AdRequest(),
+        // Styling
+        nativeTemplateStyle:
+            NativeTemplateStyle(templateType: TemplateType.small))
+      ..load();
+  }
+
+  //*****************Rewarded Ad******************
 
   static void showRewardedAd({required VoidCallback onComplete}) {
     log('Rewarded Ad Id: ${Config.rewardedAd}');
