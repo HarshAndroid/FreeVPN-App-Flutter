@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
@@ -8,7 +7,6 @@ import '../helpers/ad_helper.dart';
 import '../helpers/config.dart';
 import '../helpers/pref.dart';
 import '../main.dart';
-
 import '../models/vpn_status.dart';
 import '../services/vpn_engine.dart';
 import '../widgets/count_down_timer.dart';
