@@ -4,10 +4,10 @@ description: Flutter Android VPN based on OpenVPN Library.
 publish_to: 'none'
 
 # App Version
-version: 1.0.0+1
+version: 1.0.1+1
 
 environment:
-  sdk: ">=2.18.6 <3.0.0"
+  sdk: ">=2.18.6 <4.0.0"
 
 # App dependencies
 dependencies:
@@ -15,32 +15,32 @@ dependencies:
     sdk: flutter
 
   # Getx for state management
-  get: ^4.6.5
+  get: ^4.6.6
 
   # Cupertino style icons
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.8
 
   # For API Call
-  http: ^1.0.0
+  http: ^1.2.1
 
   # Converting CSV data to List
-  csv: ^5.0.2
+  csv: ^6.0.0
 
   # For Lottie Animation
-  lottie: ^2.3.2
+  lottie: ^3.1.2
 
   # For storing data (in local storage) 
   hive: ^2.2.3
   hive_flutter: ^1.1.0
 
   # For integrating ads
-  google_mobile_ads: ^3.0.0
+  google_mobile_ads: ^5.1.0
 
   # For firebase
-  firebase_core: ^2.14.0
+  firebase_core: ^3.2.0
 
   # For Remote Config
-  firebase_remote_config: ^4.2.3
+  firebase_remote_config: ^5.0.3
 
 
 dev_dependencies:
