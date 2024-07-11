@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'freevpn-flutter',
     storageBucket: 'freevpn-flutter.appspot.com',
   );
+
 }
