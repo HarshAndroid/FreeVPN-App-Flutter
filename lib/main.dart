@@ -28,7 +28,7 @@ Future<void> main() async {
   await AdHelper.initAds();
 
   //for setting orientation to portrait only
-  SystemChrome.setPreferredOrientations(
+  await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((v) {
     runApp(const MyApp());
   });
