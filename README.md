@@ -1,53 +1,73 @@
 # FreeVPN App Flutter
+
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 ![Dart](https://img.shields.io/badge/dart-100%25-brightgreen)
 ![Flutter](https://img.shields.io/badge/Flutter-Cross%20Platform-blue)
 
-⭐ Note: This Project is for <strong>Learning & Educational Purpose</strong> and uses a <strong>Older</strong> Version of OpenVPN SDK, so if you Publishing it on <strong>Play Store</strong> then it will get <strong>Rejected</strong>.
+⭐ **Note:** This project is for **learning & educational purposes** and uses an **older** version of the OpenVPN SDK. If you plan to publish this on the **Play Store**, it may get **rejected**.
 
-<br><strong>Simple, Decent & Free VPN Application based on OpenVPN Protocol.</strong></br>
+---
 
-<strong>Check Youtube Course 👇</strong>
-https://youtube.com/playlist?list=PL8kbUJtS6hyal7Uw7wTeYmv7yiNPH5kOq
+## 📱 Simple, Decent & Free VPN App Based on the OpenVPN Protocol
 
-<strong>Some ScreenShots(Actual App Even Looks Better 😃):</strong></br><br>
+A lightweight, easy-to-use VPN application built with Flutter, offering secure connections via the OpenVPN protocol.
+
+---
+
+## 📸 Screenshots:
+
+**Actual app looks even better! 😃**
+
 <kbd>
-<img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/1.png" width=30% height=30%/>
-<img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/2.png" width=30% height=30%/>
-<img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/3.png" width=30% height=30%/>
-<img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/4.png" width=30% height=30%/>
-<img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/5.png" width=30% height=30%/>
-<img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/6.png" width=30% height=30%/>
+  <img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/1.png" width=30% height=30%/>
+  <img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/2.png" width=30% height=30%/>
+  <img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/3.png" width=30% height=30%/>
+  <img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/4.png" width=30% height=30%/>
+  <img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/5.png" width=30% height=30%/>
+  <img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/6.png" width=30% height=30%/>
 </kbd>
-<br>
-<br>
-  
- <strong>Features👇 : </strong>
-<ul>
-<li>Many Free Public Servers (From: https://www.vpngate.net/en/)
-<li>Secure OpenVPN Protocol
-<li>No Signing Required
-<li>IP Address Test
-<li>Data Caching
-<li>Google Test Ads Integrated
-<li>Decent UI with New Material Widgets
-<li>And Much More....
-</ul>
 
-<br>👉 <strong>Google Ads</strong> are integrated in the project with <strong>Firebase</strong> for dynamics AD IDs (if you want them to work fine then configure firebase and some changes).
+---
 
-Refer this videos for Firebase & Remote Config Changes for Ads: https://youtu.be/Bx0ixmpHpMI
-https://youtu.be/XkbRhBiSZMU<br>
-<br>
+## ✨ Features:
 
-<strong>Note:</strong> This Project is a built on top of NizVpn Flutter (Show some love to his efforts).
-<br>Github Link: https://github.com/nizwar/nizvpn
-  
-<br><strong>Watch Full Playlist on Youtube:</strong>
-  https://youtube.com/playlist?list=PL8kbUJtS6hyal7Uw7wTeYmv7yiNPH5kOq
-<br>
-  
-  
-<!--  <strong>Note:</strong> This Project is Much More Improved (i.e. Contains New Features) & Optimized than Youtube Course Project. -->
-For Feedback or Suggestions Mail Me At rajpurohitharsh2020@gmail.com 🙂
+- Access many free public servers from [VPN Gate](https://www.vpngate.net/en/).
+- Secure connection using the **OpenVPN protocol**.
+- **No sign-up required**—start using the app right away.
+- **IP Address Test** feature to verify your VPN connection.
+- **Data caching** for faster access.
+- Integrated **Google Test Ads** with Firebase for dynamic ad IDs.
+- Decent UI with modern Material Widgets.
+- **And much more...**
 
+---
+
+## ⚙️ Google Ads Integration:
+
+This project includes **Google Ads** with Firebase for dynamic ad IDs.  
+To make the ads function correctly, configure Firebase and apply some adjustments.
+
+Refer to these videos for Firebase and Remote Config setup for ads:  
+- [Firebase Setup for Ads](https://youtu.be/Bx0ixmpHpMI)  
+- [Remote Config for Ads](https://youtu.be/XkbRhBiSZMU)
+
+---
+
+## 💡 Note:
+
+This project is built on top of **NizVpn Flutter**. Show some love to the original creator:  
+[GitHub Link to NizVpn](https://github.com/nizwar/nizvpn)
+
+---
+
+## 🎥 YouTube Course:
+
+Check out the full **YouTube Course**:  
+[Watch the Playlist](https://youtube.com/playlist?list=PL8kbUJtS6hyal7Uw7wTeYmv7yiNPH5kOq)
+
+---
+
+## 💬 Feedback and Suggestions:
+
+For any feedback or suggestions, feel free to contact me via email:  
+📧 [rajpurohitharsh2020@gmail.com](mailto:rajpurohitharsh2020@gmail.com)
