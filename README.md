@@ -14,6 +14,18 @@ A lightweight, easy-to-use VPN application built with Flutter, offering secure c
 
 ---
 
+## 📦 APKs:
+
+- **Arm APK:**  
+  [Download Arm APK](https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/sample%20apk/Free%20Vpn%20App%20(arm)%2011_07_2024.apk)  
+  *(Supports ARM v7 and v8 devices)*
+
+- **Global APK:**  
+  [Download Global APK](https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/sample%20apk/Free%20Vpn%20App%20(global)%2011_07_2024.apk)  
+  *(Supports all devices)*
+
+---
+
 ## 📸 Screenshots:
 
 **Actual app looks even better! 😃**
